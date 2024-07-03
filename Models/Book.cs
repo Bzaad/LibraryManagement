@@ -14,7 +14,10 @@ namespace LibraryApp.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        public int? Quantity { get; set; }
+        public string Description { get; set; } = string.Empty;
+
+        [Required]
+        public int? AvailableCopies { get; set; }
 
         public Category? Category { get; set; }
         

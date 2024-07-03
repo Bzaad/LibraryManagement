@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Book>
+
+@if(Model != null && Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Book Name</th>
+                <th>Available Copies</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr class="book-row">
+                    <td>@book.Name</td>
+                    <td>@book.AvailableCopies</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

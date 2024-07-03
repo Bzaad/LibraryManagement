@@ -28,13 +28,16 @@ namespace LibraryApp.Controllers
         public IActionResult Add(BookViewModel bookViewModel)
         {
             ViewBag.Action = "add";
+
             if (ModelState.IsValid)
             {
                 BookRepo.AddBook(bookViewModel.Book);
+                return RedirectToAction(nameof(Index));
             }
 
             bookViewModel.Categories = CatRepo.GetCategories();
-            return RedirectToAction(nameof(Index));
+            return View(bookViewModel);
+
         }
 
         public IActionResult Edit(int id)
@@ -70,5 +73,11 @@ namespace LibraryApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult BooksByCategoryPartial(int categoryId)
+        {
+            var books = BookRepo.GetBooksByCategoryId(categoryId);
+
+            return PartialView("_Books", books);
+        }
     }
 }

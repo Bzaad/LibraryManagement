@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="xunit" Version="2.8.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="xunit" Version="2.8.1" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>

@@ -4,10 +4,10 @@
     {
         private static List<Book> _books = new List<Book>()
         {
-            new Book { Id = 1, CategoryId = 1, Name = "A Farewell to Arms", Quantity = 100 },
-            new Book { Id = 2, CategoryId = 1, Name = "the hitchhiker's guide to the galaxy", Quantity = 200 },
-            new Book { Id = 3, CategoryId = 2, Name = "The Language Instinct", Quantity = 300 },
-            new Book { Id = 4, CategoryId = 2, Name = "A Brief History of Time", Quantity = 300 }
+            new Book { Id = 1, CategoryId = 1, Name = "A Farewell to Arms", Description= "A good book!", AvailableCopies = 100 },
+            new Book { Id = 2, CategoryId = 1, Name = "the hitchhiker's guide to the galaxy", Description = "Fantastic", AvailableCopies = 200 },
+            new Book { Id = 3, CategoryId = 2, Name = "The Language Instinct", AvailableCopies = 300 },
+            new Book { Id = 4, CategoryId = 2, Name = "A Brief History of Time", AvailableCopies = 300 }
         };
 
         public static void AddBook(Book book)
@@ -53,7 +53,8 @@
                 {
                     Id = book.Id,
                     Name = book.Name,
-                    Quantity = book.Quantity,
+                    Description = book.Description,
+                    AvailableCopies = book.AvailableCopies,
                     CategoryId = book.CategoryId
                 };
             }
@@ -74,7 +75,8 @@
             if (bookToUpdate != null)
             {
                 bookToUpdate.Name = book.Name;
-                bookToUpdate.Quantity = book.Quantity;
+                bookToUpdate.Description = book.Description;
+                bookToUpdate.AvailableCopies = book.AvailableCopies;
                 bookToUpdate.CategoryId = book.CategoryId;
             }
         }
@@ -86,6 +88,16 @@
             {
                 _books.Remove(book);
             }
+        }
+
+        public static List<Book> GetBooksByCategoryId(int categoryId)
+        {
+            var books = _books.Where(book => book.CategoryId == categoryId);
+
+            if (books != null)
+                return books.ToList();
+            else 
+                return new List<Book>();
         }
     }
 }
