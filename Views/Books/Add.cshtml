@@ -1,0 +1,10 @@
+﻿@model BookViewModel
+
+@section title {
+    <h3>Add Book</h3>
+} 
+
+@if(Model != null)
+{
+    <partial name="_Book" model="Model" />
+}

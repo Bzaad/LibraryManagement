@@ -1,0 +1,63 @@
+﻿@model BookViewModel
+
+@{
+    string action = ViewBag.Action ?? string.Empty;
+}
+
+<form method="post" asp-controller="books" asp-action="@action">
+    @if (action?.ToLower() == "Edit")
+    {
+        <input type="hidden" asp-for="Book.Id" />
+    }
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <div class="mb-3 row">
+        <div class="col-2">
+            <label asp-for="Book.CategoryId" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <select asp-for="Book.CategoryId" class="form-control">
+                <option> Please Select a Category</option>
+                @if (Model.Categories != null && Model.Categories.Count() > 0)
+                {
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Book.CategoryId"></span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-2">
+            <label asp-for="Book.Name" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Book.Name" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Book.Name"></span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-2">
+            <label asp-for="Book.Quantity" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Book.Quantity" class="form-control" min="1" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Book.Quantity"></span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-2">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+
+</form>

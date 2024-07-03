@@ -14,6 +14,8 @@ namespace LibraryApp.Controllers
 
         public IActionResult Edit(int? id)
         {
+            ViewBag.Action = "edit";
+
             var category = CatRepo.GetCategoryById(id.HasValue ? id.Value : 0);
 
             return View(category);
@@ -22,6 +24,8 @@ namespace LibraryApp.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
+            ViewBag.Action = "edit";
+
             if (ModelState.IsValid)
             {
                 CatRepo.UpdateCategory(category.Id, category);
@@ -34,12 +38,15 @@ namespace LibraryApp.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add";
             return View();
         }
 
         [HttpPost]
         public IActionResult Add(Category category)
         {
+            ViewBag.Action = "add";
+
             if (ModelState.IsValid)
             {
                 CatRepo.AddCategory(category);

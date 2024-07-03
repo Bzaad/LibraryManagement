@@ -1,0 +1,48 @@
+﻿@model List<Book>
+
+@section title {
+    <h3>Books</h3>
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th>Book Name</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var book in Model)
+            {
+                <tr>
+                    <td>@book.Category?.Name</td>
+                    <td>@book.Name</td>
+                    <td>@book.Quantity</td>
+                    <td><a class="btn btn-link", asp-controller="books" asp-action="edit" asp-route-id="@book.Id"> Edit </a></td>
+                    <td><a class="btn btn-link" , asp-controller="books" asp-action="delete" asp-route-id="@book.Id" onclick="return confirmDelete()"> Delete </a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="row mb-3">
+    <div class="col-2">
+        <td><a class="btn btn-primary" metod="post" asp-controller="books" asp-action="add">Add</a></td>
+    </div>
+    <div class="col-6">
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete the selected book?");
+        }
+    </script>
+}
