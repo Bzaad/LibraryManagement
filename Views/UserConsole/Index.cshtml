@@ -22,24 +22,35 @@
             }
         </select>
         <br />
-        <div id="booksPartial">
-            @* Books List Partial *@
-        </div>
+        <div id="booksPartial"></div>
         <br />
-        <div id="bookDetailPartial">
-            @* "Book" Details *@
-        </div>
+        <div id="bookDetailPartial"></div>
+        <form method="post" asp-asp-controller="userConsole" asp-action="borrow" id="formBorrow">
+            <input asp-for="SelectedBookId" type="hidden" />
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Borrow Book" />
+            </div>
+        </form>
     </div>
     <div class="col">
-        <!-- Additional content column -->
+
     </div>
 </div>
 
 @section Scripts {
     <script>
         $(function () {
+            $("#formBorrow").hide();
+
+            var selectedCategoryId = $("#SelectedCategoryId").val();
+
+            if(selectedCategoryId > 0){
+                loadBooks(selectedCategoryId);
+            }
+
             $("#SelectedCategoryId").change(function () {
-                $("#booksPartial").load("/books/BooksByCategoryPartial", { categoryId: $(this).val() });
+                loadBooks($(this).val());
             });
 
             $("#booksPartial").on('click', '.book-row', function () {
@@ -48,9 +59,23 @@
 
                 var bookId = $(this).attr('id');
 
-                $("#bookDetailPartial").load("/UserConsole/SelectBookPartial", { Id: bookId });
+                $("#bookDetailPartial").load("/UserConsole/SelectBookPartial", { bookId: bookId });
+
+                if (bookId > 0) {
+
+                    $("#SelectedBookId").val(bookId);
+                    $("#formBorrow").show();
+                } else {
+                    $("#SelectedBookId").val("");
+                    $("#formBorrow").hide();
+                }
             });
         });
 
+        function loadBooks(categoryId){
+            $("#booksPartial").load("/books/BooksByCategoryPartial", { categoryId: categoryId });
+            $("#bookDetailPartial").html("");
+            $("#formBorrow").hide();
+        }
     </script>
 }

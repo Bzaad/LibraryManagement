@@ -12,7 +12,7 @@
         <tbody>
             @foreach (var book in Model)
             {
-                <tr class="book-row">
+                <tr class="book-row" id="@book.Id">
                     <td>@book.Name</td>
                     <td>@book.AvailableCopies</td>
                 </tr>

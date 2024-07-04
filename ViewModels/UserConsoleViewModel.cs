@@ -7,5 +7,7 @@ namespace LibraryApp.ViewModels
         public int SelectedCategoryId { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }  = new List<Category>();
+
+        public int SelectedBookId { get; set; }
     }
 }
