@@ -1,11 +1,18 @@
-﻿using LibraryApp.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using UseCases.Interfaces;
 using LibraryApp.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryApp.Controllers
 {
     public class TransactionsController : Controller
     {
+        private readonly ISearchTransactionUseCase _searchTransactionUseCase;
+
+        public TransactionsController(ISearchTransactionUseCase searchTransactionUseCase)
+        {
+            _searchTransactionUseCase = searchTransactionUseCase;
+        }
+
         public IActionResult Index()
         {
             TransactionsViewModel viewModel = new TransactionsViewModel();
@@ -15,7 +22,7 @@ namespace LibraryApp.Controllers
 
         public IActionResult Search(TransactionsViewModel viewModel) 
         {
-            var transactions = TransactionRepo.Search(viewModel.UserName??string.Empty, viewModel.StartDate, viewModel.EndDate);
+            var transactions = _searchTransactionUseCase.Execute(viewModel.UserName??string.Empty, viewModel.StartDate, viewModel.EndDate);
 
             viewModel.Transactions = transactions;
 

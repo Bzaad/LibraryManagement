@@ -1,5 +1,6 @@
 ﻿using CoreBusiness;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.Interfaces;
 
 namespace UseCases.CategoriesUseCases
 {

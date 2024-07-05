@@ -1,21 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using LibraryApp.Models;
 using LibraryApp.ViewModels;
-using UseCases.DataStorePluginInterfaces;
+using UseCases.Interfaces;
+using CoreBusiness;
 
 namespace LibraryApp.Controllers
 {
     public class BooksController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoriesUseCases;
-        public BooksController(IViewCategoriesUseCases viewCategoriesUseCases)
+        public readonly IGetBooksUseCase _getBooksUseCase;
+        public readonly IGetSingleBookUseCase _getBookUseCase;
+        public readonly IAddBookUseCase _addBookUseCase;
+        public readonly IUpdateBookUseCase _updateBookUseCase;
+        public readonly IDeleteBookUseCase _deleteBookUseCase;
+        public readonly IGetBooksByCategoryUseCase _getBooksByCategoryUseCase;
+
+        public BooksController
+        (
+            IViewCategoriesUseCases viewCategoriesUseCases,
+            IGetBooksUseCase getBooksUseCase,
+            IGetSingleBookUseCase getBookUseCase,
+            IAddBookUseCase addBookUseCase, 
+            IUpdateBookUseCase updateBookUseCase, 
+            IDeleteBookUseCase deleteBookUseCase, 
+            IGetBooksByCategoryUseCase getBooksByCategoryUseCase
+        )
         {
             _viewCategoriesUseCases = viewCategoriesUseCases;
+            _getBooksUseCase = getBooksUseCase;
+            _getBookUseCase = getBookUseCase;
+            _addBookUseCase = addBookUseCase;
+            _updateBookUseCase = updateBookUseCase;
+            _deleteBookUseCase = deleteBookUseCase;
+            _getBooksByCategoryUseCase = getBooksByCategoryUseCase;
         }
 
         public IActionResult Index()
         {
-            var books = BookRepo.GetBooks(loadCategory: true);
+            var books = _getBooksUseCase.Execute(loadCategory: true);
             return View(books);
         }
 
@@ -25,7 +47,7 @@ namespace LibraryApp.Controllers
 
             var bookViewModel = new BookViewModel
             {
-                Categories = CatRepo.GetCategories()
+                Categories = _viewCategoriesUseCases.Execute()
             };
 
             return View(bookViewModel);
@@ -38,11 +60,11 @@ namespace LibraryApp.Controllers
 
             if (ModelState.IsValid)
             {
-                BookRepo.AddBook(bookViewModel.Book);
+                _addBookUseCase.Execute(bookViewModel.Book);
                 return RedirectToAction(nameof(Index));
             }
 
-            bookViewModel.Categories = CatRepo.GetCategories();
+            bookViewModel.Categories = _viewCategoriesUseCases.Execute();
             return View(bookViewModel);
 
         }
@@ -53,8 +75,8 @@ namespace LibraryApp.Controllers
 
             var bookViewModel = new BookViewModel
             {
-                Book = BookRepo.GetBookById(id) ?? new Book(), 
-                Categories = CatRepo.GetCategories()
+                Book = _getBookUseCase.Execute(id) ?? new Book(), 
+                Categories = _viewCategoriesUseCases.Execute()
             }; 
             return View(bookViewModel);
         }
@@ -66,23 +88,23 @@ namespace LibraryApp.Controllers
 
             if (ModelState.IsValid) 
             {
-                BookRepo.UpdateBook(bookViewModel.Book.Id, bookViewModel.Book);
+                _updateBookUseCase.Execute(bookViewModel.Book.Id, bookViewModel.Book);
                 return RedirectToAction(nameof(Index));
             }
 
-            bookViewModel.Categories = CatRepo.GetCategories();
+            bookViewModel.Categories = _viewCategoriesUseCases.Execute();
             return View(bookViewModel);
         }
 
         public IActionResult Delete(int id) 
         {
-           BookRepo.DeleteBook(id);
+           _deleteBookUseCase.Execute(id);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult BooksByCategoryPartial(int categoryId)
         {
-            var books = BookRepo.GetBooksByCategoryId(categoryId);
+            var books = _getBooksByCategoryUseCase.Execute(categoryId);
 
             return PartialView("_Books", books);
         }

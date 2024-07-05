@@ -1,4 +1,4 @@
-﻿namespace UseCases.DataStorePluginInterfaces
+﻿namespace UseCases.Interfaces
 {
     public interface IDeleteCategoryUseCase
     {

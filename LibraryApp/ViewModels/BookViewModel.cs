@@ -1,4 +1,4 @@
-﻿using LibraryApp.Models;
+﻿using CoreBusiness;
 
 namespace LibraryApp.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using CoreBusiness;
 using Microsoft.AspNetCore.Mvc;
-using UseCases.DataStorePluginInterfaces;
+using UseCases.Interfaces;
 
 namespace LibraryApp.Controllers
 {
