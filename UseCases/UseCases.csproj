@@ -11,4 +11,9 @@
     <ProjectReference Include="..\CoreBusiness\CoreBusiness.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BooksUseCases\" />
+    <Folder Include="TransactionUseCases\" />
+  </ItemGroup>
+
 </Project>

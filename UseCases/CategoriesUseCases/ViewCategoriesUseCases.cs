@@ -3,18 +3,17 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases.CategoriesUseCases
 {
-    public class ViewSelectedCategoryUseCase : IViewSelectedCategoryUseCase
+    public class ViewCategoriesUseCases : IViewCategoriesUseCases
     {
         private readonly ICategoryRepository _categoryRepository;
-
-        public ViewSelectedCategoryUseCase(ICategoryRepository categoryRepository)
+        public ViewCategoriesUseCases(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
 
-        public Category? Execute(int categoryId)
+        public IEnumerable<Category> Execute()
         {
-            return _categoryRepository.GetCategoryById(categoryId);
+            return _categoryRepository.GetCategories();
         }
     }
 }

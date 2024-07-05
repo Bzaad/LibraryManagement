@@ -1,13 +1,37 @@
-﻿using LibraryApp.Models;
+﻿using CoreBusiness;
 using Microsoft.AspNetCore.Mvc;
+using UseCases.DataStorePluginInterfaces;
 
 namespace LibraryApp.Controllers
 {
     public class CategoriesController : Controller
     {
+        public readonly IViewCategoriesUseCases _viewCategoryUseCases;
+        public readonly IViewSelectedCategoryUseCase _viewSelectedCategoryUseCase;
+        public readonly IAddCategoryUseCase _addCategoryUseCase;
+        public readonly IDeleteCategoryUseCase _deleteCategoryUseCase;
+        public readonly IEditCategoryUseCase _editCategoryUseCase;
+
+        public CategoriesController
+        (
+            IViewCategoriesUseCases viewCategoryUseCases,
+            IViewSelectedCategoryUseCase viewSelectedCategoryUseCase,
+            IAddCategoryUseCase addCategoryUseCase, 
+            IDeleteCategoryUseCase deleteCategoryUseCase, 
+            IEditCategoryUseCase editCategoryUseCase
+
+        )
+        {
+            _viewCategoryUseCases = viewCategoryUseCases;
+            _viewSelectedCategoryUseCase = viewSelectedCategoryUseCase;
+            _addCategoryUseCase = addCategoryUseCase;
+            _deleteCategoryUseCase = deleteCategoryUseCase;
+            _editCategoryUseCase = editCategoryUseCase;
+        }
+
         public IActionResult Index()
         {
-            var categories = CatRepo.GetCategories();
+            var categories = _viewCategoryUseCases.Execute();
 
             return View(categories);
         }
@@ -16,7 +40,7 @@ namespace LibraryApp.Controllers
         {
             ViewBag.Action = "edit";
 
-            var category = CatRepo.GetCategoryById(id.HasValue ? id.Value : 0);
+            var category = _viewSelectedCategoryUseCase.Execute(id.HasValue ? id.Value : 0);
 
             return View(category);
         }
@@ -28,7 +52,7 @@ namespace LibraryApp.Controllers
 
             if (ModelState.IsValid)
             {
-                CatRepo.UpdateCategory(category.Id, category);
+                _editCategoryUseCase.Execute(category.Id, category);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -49,7 +73,7 @@ namespace LibraryApp.Controllers
 
             if (ModelState.IsValid)
             {
-                CatRepo.AddCategory(category);
+                _addCategoryUseCase.Execute(category);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -59,7 +83,7 @@ namespace LibraryApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            CatRepo.DeleteCategory(id);
+            _deleteCategoryUseCase.Execute(id);
 
             return RedirectToAction(nameof(Index));
         }

@@ -1,11 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LibraryApp.Models;
 using LibraryApp.ViewModels;
+using UseCases.DataStorePluginInterfaces;
 
 namespace LibraryApp.Controllers
 {
     public class BooksController : Controller
     {
+        public readonly IViewCategoriesUseCases _viewCategoriesUseCases;
+        public BooksController(IViewCategoriesUseCases viewCategoriesUseCases)
+        {
+            _viewCategoriesUseCases = viewCategoriesUseCases;
+        }
+
         public IActionResult Index()
         {
             var books = BookRepo.GetBooks(loadCategory: true);
