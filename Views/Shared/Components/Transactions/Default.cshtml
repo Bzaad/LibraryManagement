@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Transaction>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Book Name</th>
+            <th>Date Borrowed</th>
+            <th>Date Should be Returned</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var tranaction in Model)
+        {
+            <tr>
+                <td>@tranaction.UserName</td>
+                <td>@tranaction.BookName</td>
+                <td>@tranaction.DateBorrowed.ToString("MM/dd hh:mm")</td>
+                <td>@tranaction.DateShouldBeReturned.ToString("MM/dd hh:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>

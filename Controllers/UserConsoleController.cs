@@ -39,8 +39,6 @@ namespace LibraryApp.Controllers
                     book.AvailableCopies--;
                     BookRepo.UpdateBook(userConsoleViewModel.SelectedBookId, book);
                 }
-
-
             }
 
             var bookView = BookRepo.GetBookById(userConsoleViewModel.SelectedBookId);
