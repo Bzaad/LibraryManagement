@@ -4,8 +4,15 @@ using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
 using UseCases.TransactionUseCases;
 using UseCases.BooksUseCases;
+using Plugins.DataStore.SQL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<LibraryContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryManagement"));
+});
 
 builder.Services.AddControllersWithViews();
 

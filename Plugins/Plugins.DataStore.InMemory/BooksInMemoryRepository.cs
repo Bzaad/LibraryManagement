@@ -46,28 +46,26 @@ namespace Plugins.DataStore.InMemory
                     if (book.CategoryId.HasValue)
                         book.Category = _categoryRepository.GetCategoryById(book.CategoryId.Value);
                 });
+                return _books;
             }
 
-            return _books;
-
+            return new List<Book>();
         }
 
         public Book? GetBookById(int id, bool loadCategory = false)
         {
             var book = _books.FirstOrDefault(x => x.Id == id);
 
+            if (book == null) return null;
 
-            if (book != null)
+            book = new Book
             {
-                book = new Book
-                {
-                    Id = book.Id,
-                    Name = book.Name,
-                    Description = book.Description,
-                    AvailableCopies = book.AvailableCopies,
-                    CategoryId = book.CategoryId
-                };
-            }
+                Id = book.Id,
+                Name = book.Name,
+                Description = book.Description,
+                AvailableCopies = book.AvailableCopies,
+                CategoryId = book.CategoryId
+            };
 
             if (loadCategory && book.CategoryId.HasValue)
             {

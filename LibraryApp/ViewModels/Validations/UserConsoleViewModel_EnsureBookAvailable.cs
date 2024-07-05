@@ -1,17 +1,23 @@
-﻿using LibraryApp.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using UseCases.Interfaces;
 
 namespace LibraryApp.ViewModels.Validations
 {
     public class UserConsoleViewModel_EnsureBookAvailable : ValidationAttribute
     {
+        private readonly IGetSingleBookUseCase _getSingleBookUseCase;
+
+        public UserConsoleViewModel_EnsureBookAvailable(IGetSingleBookUseCase getSingleBookUseCase)
+        {
+            _getSingleBookUseCase = getSingleBookUseCase;
+        }
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             var userConsoleViewModel = validationContext.ObjectInstance as UserConsoleViewModel;
 
             if (userConsoleViewModel != null)
             {
-                var book = BookRepo.GetBookById(userConsoleViewModel.SelectedBookId);
+                var book = _getSingleBookUseCase.Execute(userConsoleViewModel.SelectedBookId);
                 if (book != null) 
                 {
                     if (book.AvailableCopies <= 0) 

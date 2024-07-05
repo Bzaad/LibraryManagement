@@ -5,13 +5,15 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApp", "LibraryApp\LibraryApp.csproj", "{6BA57174-91D0-4689-A24D-6ADA183FCB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{8F106F62-9C97-49DB-8417-4F889EAEFFC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBusiness", "CoreBusiness\CoreBusiness.csproj", "{8F106F62-9C97-49DB-8417-4F889EAEFFC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "UseCases\UseCases.csproj", "{792751CE-B838-4E0C-B8E0-52CD7480964B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCases.csproj", "{792751CE-B838-4E0C-B8E0-52CD7480964B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{6B909C53-2DE8-4BD6-A529-B1CDE4D1CE8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{6EC0AC69-45A5-48E8-AE35-D4E5E2147757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugins.DataStore.InMemory", "Plugins\Plugins.DataStore.InMemory\Plugins.DataStore.InMemory.csproj", "{6EC0AC69-45A5-48E8-AE35-D4E5E2147757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugins.DataStore.SQL", "Plugins\Plugins.DataStore.SQL\Plugins.DataStore.SQL.csproj", "{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{6EC0AC69-45A5-48E8-AE35-D4E5E2147757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EC0AC69-45A5-48E8-AE35-D4E5E2147757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EC0AC69-45A5-48E8-AE35-D4E5E2147757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6EC0AC69-45A5-48E8-AE35-D4E5E2147757} = {6B909C53-2DE8-4BD6-A529-B1CDE4D1CE8A}
+		{0792083B-44BD-4A90-B8E4-BC66C4FE0C6B} = {6B909C53-2DE8-4BD6-A529-B1CDE4D1CE8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0FFF5F07-E2D3-4A2D-8153-79648B1F71B3}
