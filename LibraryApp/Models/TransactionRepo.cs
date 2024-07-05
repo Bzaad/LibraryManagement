@@ -53,7 +53,7 @@
                 transaction.Id = 1;
             }
             
-            transactions.Add(transaction);
+            transactions!.Add(transaction);
         }
     }
 }
