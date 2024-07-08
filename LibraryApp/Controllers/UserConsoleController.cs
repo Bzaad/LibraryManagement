@@ -1,9 +1,11 @@
 ﻿using LibraryApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.Interfaces;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize]
     public class UserConsoleController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoriesUseCases;

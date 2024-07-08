@@ -1,9 +1,11 @@
 ﻿using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UseCases.Interfaces;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoryUseCases;

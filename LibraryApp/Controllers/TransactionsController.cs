@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UseCases.Interfaces;
 using LibraryApp.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private readonly ISearchTransactionUseCase _searchTransactionUseCase;

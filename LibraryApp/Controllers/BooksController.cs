@@ -2,9 +2,11 @@
 using LibraryApp.ViewModels;
 using UseCases.Interfaces;
 using CoreBusiness;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoriesUseCases;
