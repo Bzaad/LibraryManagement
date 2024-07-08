@@ -16,9 +16,18 @@ builder.Services.AddDbContext<LibraryContext>(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
-builder.Services.AddSingleton<IBookRepository, BooksInMemoryRepository>();
-builder.Services.AddSingleton<ITransactionRepository, TransactionsInMemoryRepository>();
+if (builder.Environment.IsEnvironment("Test"))
+{
+    builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();
+    builder.Services.AddSingleton<IBookRepository, BooksInMemoryRepository>();
+    builder.Services.AddSingleton<ITransactionRepository, TransactionsInMemoryRepository>();
+}
+else
+{
+    builder.Services.AddTransient<ICategoryRepository, CategorySQLRepository>();
+    builder.Services.AddTransient<IBookRepository, BookSQLRepository>();
+    builder.Services.AddTransient<ITransactionRepository, TransactionSQLRepository>();
+}
 
 builder.Services.AddTransient<IViewCategoriesUseCases, ViewCategoriesUseCases>();
 builder.Services.AddTransient<IViewSelectedCategoryUseCase, ViewSelectedCategoryUseCase>();
