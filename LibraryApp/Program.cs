@@ -6,6 +6,8 @@ using UseCases.TransactionUseCases;
 using UseCases.BooksUseCases;
 using Plugins.DataStore.SQL;
 using Microsoft.EntityFrameworkCore;
+using LibraryApp.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<LibraryContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryManagement"));
 });
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AccountContext>();
 
 builder.Services.AddControllersWithViews();
 
