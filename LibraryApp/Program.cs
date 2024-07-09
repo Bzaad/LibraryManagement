@@ -27,6 +27,12 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Librarian", p => p.RequireClaim("Title", "Librarian"));
+    options.AddPolicy("LibraryUser", p => p.RequireClaim("Title", "LibraryUser"));
+});
+
 if (builder.Environment.IsEnvironment("Test"))
 {
     builder.Services.AddSingleton<ICategoryRepository, CategoriesInMemoryRepository>();

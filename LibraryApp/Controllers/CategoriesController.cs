@@ -5,7 +5,7 @@ using UseCases.Interfaces;
 
 namespace LibraryApp.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Librarian")]
     public class CategoriesController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoryUseCases;

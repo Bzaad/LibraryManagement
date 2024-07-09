@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace LibraryApp.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "Librarian")]
     public class BooksController : Controller
     {
         public readonly IViewCategoriesUseCases _viewCategoriesUseCases;
@@ -15,7 +15,7 @@ namespace LibraryApp.Controllers
         public readonly IAddBookUseCase _addBookUseCase;
         public readonly IUpdateBookUseCase _updateBookUseCase;
         public readonly IDeleteBookUseCase _deleteBookUseCase;
-        public readonly IGetBooksByCategoryUseCase _getBooksByCategoryUseCase;
+
 
         public BooksController
         (
@@ -24,8 +24,7 @@ namespace LibraryApp.Controllers
             IGetSingleBookUseCase getBookUseCase,
             IAddBookUseCase addBookUseCase, 
             IUpdateBookUseCase updateBookUseCase, 
-            IDeleteBookUseCase deleteBookUseCase, 
-            IGetBooksByCategoryUseCase getBooksByCategoryUseCase
+            IDeleteBookUseCase deleteBookUseCase
         )
         {
             _viewCategoriesUseCases = viewCategoriesUseCases;
@@ -34,7 +33,6 @@ namespace LibraryApp.Controllers
             _addBookUseCase = addBookUseCase;
             _updateBookUseCase = updateBookUseCase;
             _deleteBookUseCase = deleteBookUseCase;
-            _getBooksByCategoryUseCase = getBooksByCategoryUseCase;
         }
 
         public IActionResult Index()
@@ -102,13 +100,6 @@ namespace LibraryApp.Controllers
         {
            _deleteBookUseCase.Execute(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult BooksByCategoryPartial(int categoryId)
-        {
-            var books = _getBooksByCategoryUseCase.Execute(categoryId);
-
-            return PartialView("_Books", books);
         }
     }
 }
