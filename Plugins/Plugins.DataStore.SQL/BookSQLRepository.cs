@@ -67,8 +67,7 @@ namespace Plugins.DataStore.SQL
             b.Description = book.Description;
             b.AvailableCopies = book.AvailableCopies;
 
-            _db.SaveChanges();
-                
+            _db.SaveChanges();    
         }
     }
 }

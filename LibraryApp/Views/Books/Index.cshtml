@@ -24,7 +24,7 @@
                     <td>@book.Category?.Name</td>
                     <td>@book.Name</td>
                     <td>@book.Description</td>
-                    <td>@book.AvailableCopies</td>
+                    <td id="NumberAvailable">@book.AvailableCopies</td>
                     <td><a class="btn btn-link", asp-controller="books" asp-action="edit" asp-route-id="@book.Id"> Edit </a></td>
                     <td><a class="btn btn-link" , asp-controller="books" asp-action="delete" asp-route-id="@book.Id" onclick="return confirmDelete()"> Delete </a></td>
                 </tr>
@@ -45,6 +45,14 @@
     <script>
         function confirmDelete() {
             return confirm("Are you sure you want to delete the selected book?");
+        }
+
+        function() booksNotAvailable() {
+            var numberAvailable = $("#NumberAvailable").val() === 0;
+            
+            if (numberAvailable){
+                $("#NumberAvailable").css("background-color", "red");
+            }
         }
     </script>
 }
